@@ -1,0 +1,442 @@
+<%- include('partial/header.ejs') %>
+
+<h1>Job Application Form</h1>
+    <form name="job_app"action="/jobAppAction" method="post" onsubmit="return submit_form()">
+        <fieldset>
+            <legend><b>Basic Details</b></legend>
+            <table cellspacing="10">
+                <tr>
+                    <td>
+                        <label>First Name:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="fName" id="fName"  />
+                    </td>
+
+                    <td>
+                        <label for="lastname">Last Name:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="lastname" id="lastname"  />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="designation">Designation:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="designation" id="designation"  />
+                    </td>
+
+                    <td>
+                        <label for="addr1">Address Line 1:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="addr1" id="addr1" />
+                        <span id="showmsgadd"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="email">Email:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="email" id="email" />
+                        <span id="showmsgemail"></span>
+                    </td>
+
+                    <td>
+                        <label for="addr2">Address Line 2:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="addr2" id="addr2" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="phone">Phone Number:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="phone" id="phone" />
+                        <span id="showmsgphone"></span>
+                    </td>
+
+                    <td>
+                        <label for="city">City:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="city" id="city" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2">
+                        <label for="gender">Gender:</label>
+                    </td>
+                    <td rowspan="2">
+                        <input type="radio" name="gender" value="male" /> Male
+                        <input type="radio" name="gender" value="female" /> Female
+                        <span id="showmsgGender"></span>
+                    </td>
+
+                    <td>
+                        <label for="zip">Zip Code: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="zip" id="zip" />
+                        <span id="showmsgzip"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="state">State: </label>
+                    </td>
+                    <td>
+                        <select name="state" id="">
+                            <option value="selected" selected disabled>Select</option>
+                            <option value="gujarat">Gujarat</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="punjab">Punjab</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="materialStatus">Material status:</label>
+                    </td>
+                    <td>
+                        <select name="materialStatus" id="materialStatus">
+                            <option value="select" selected disabled>Select</option>
+                            <option value="single">Single</option>
+                            <option value="married">Maried</option>
+                        </select>
+                    </td>
+
+                    <td>
+                        <label for="dob">Date of Birth:</label>
+                    </td>
+                    <td>
+                        <input type="date" name="dob" id="dob" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br /><br />
+
+        <fieldset>
+            <legend><b>Education Details</b></legend>
+            <table cellspacing="10" id="eductaionTable">
+                <tr id="edu1">
+                    <td>
+                        <label for="courseName">Course: </label>
+                        <select name="education[0][courseName]" id="courseName">
+                            <option value="select" selected disabled>Select</option>
+                            <option value="ssc">SSC</option>
+                            <option value="hsc">HSC</option>
+                            <option value="bachelor">Bachelors</option>
+                            <option value="master">Masters</option>
+                        </select>
+                    </td>
+
+                    <td>
+                        <label for="universityName">University:</label>
+                        <input type="text" name="education[0][universityName]" id="universityName" />
+                    </td>
+
+                    <td>
+                        <label for="passingYear1">Passing Year: </label>
+                        <input type="text" name="education[0][passingYear]" id="passingYear" />
+                    </td>
+
+                    <td>
+                        <label for="percentage1">Percentage: </label>
+                        <input type="text" name="education[0][percentage]" id="percentage" />
+                    </td>
+
+                    <!-- remove button -->
+                    <td colspan="2">
+                        <input type="button" value="-" name="removeRow1" id="removeRow1"
+                            onclick="onRemoveRow('edu1')" />
+                    </td>
+                </tr>
+            </table>
+
+            <!-- add button -->
+            <table cellspacing="10">
+                <tr align="right">
+                    <td>
+                        <input type="button" value="Add Row" name="addRow" id="addRow" onclick="onAddEduRow()" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br /><br />
+
+        <fieldset>
+            <legend><b>Work Experience</b></legend>
+            <table id="workExTable" cellspacing="10">
+                <tr id="wx1">
+                    <td>
+                        <label for="companyName1">Comapny Name:</label>
+                        <input type="text" name="companyName1" id="companyName1" />
+                    </td>
+
+                    <td>
+                        <label for="designation1">Designation:</label>
+                        <input type="text" name="designation1" id="designation1" />
+                    </td>
+
+                    <td>
+                        <label for="from1">From:</label>
+                        <input type="date" name="from1" id="from1" />
+                    </td>
+
+                    <td>
+                        <label for="to1">To:</label>
+                        <input type="date" name="to1" id="to1" />
+                    </td>
+
+                    <!-- remove button -->
+                    <td colspan="2">
+                        <input type="button" value="-" name="removeRow1" id="removeRow1" onclick="onRemoveRow('wx1')" />
+                    </td>
+                </tr>
+            </table>
+
+            <!-- add button -->
+            <table cellspacing="10" >
+                <tr align="right">
+                    <td>
+                        <input type="button" value="Add Row" name="addRow" id="addRow" onclick="onAddwxRow()" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br /><br />
+
+        <table>
+            <tr>
+                <td>
+                    <fieldset>
+                        <legend><b>Language Known</b></legend>
+                        <table id="lanTable" cellspacing="10">
+                            <tr id="lan1">
+                                <td>
+                                    <select name="language1" id="language1">
+                                        <option value="lan_select" selected disabled>
+                                            Select
+                                        </option>
+                                        <option value="english">English</option>
+                                        <option value="hindi">Hindi</option>
+                                        <option value="gujarati">Gujarati</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input type="checkbox" name="read1" value="true" />Read
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="write1" value="true" />Write
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="speak1" value="true" />Speak
+                                </td>
+                                <!-- remove button -->
+                                <td colspan="2">
+                                    <input type="button" value="-" name="removeRow1" id="removeRow1"
+                                        onclick="onRemoveRow('lan1')" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- add button -->
+                        <table cellspacing="10" >
+                            <tr align="right">
+                                <td>
+                                    <input type="button" value="Add Row" name="addRow" id="addRow"
+                                        onclick="onAddLanRow()" />
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </td>
+
+                <td>
+                    <fieldset>
+                        <legend><b>Technology Known</b></legend>
+                        <table cellspacing="10" id="techTable">
+                            <tr id="tech1">
+                                <td>
+                                    <select name="technology1" id="technology1">
+                                        <option value="select1" selected disabled>Select</option>
+                                        <option value="javascript1">JavaScript</option>
+                                        <option value="php1">PHP</option>
+                                        <option value="nodejs1">NodeJS</option>
+                                        <option value="python1">Python</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input type="radio" name="beginer1" /> Beginer
+                                </td>
+                                <td>
+                                    <input type="radio" name="mediocre1" /> Mediocre
+                                </td>
+                                <td>
+                                    <input type="radio" name="expert1" /> Expert
+                                </td>
+                                <!-- remove button -->
+                                <td colspan="2">
+                                    <input type="button" value="-" name="removeRow1" id="removeRow1"
+                                        onclick="onRemoveRow('tech1')" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- add button -->
+                        <table cellspacing="10">
+                            <tr align="right">
+                                <td>
+                                    <input type="button" value="Add Row" name="addRow" id="addRow"
+                                        onclick="onAddTechRow()" />
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
+        <br /><br />
+
+        <fieldset>
+            <legend><b>Refeneces</b></legend>
+            <table cellspacing="10" id="refTable">
+                <tr id="ref1">
+                    <td>
+                        <label for="refName1">Name:</label>
+                        <input type="text" name="refName1" id="refName1" />
+                    </td>
+
+                    <td>
+                        <label for="refcontact1">Contact Number:</label>
+                        <input type="tel" name="refContact1" id="refContact1" />
+                    </td>
+
+                    <td>
+                        <label for="refRelation1">Relation:</label>
+                        <input type="text" name="refRelation1" id="refRelation1" />
+                    </td>
+
+                    <!-- remove button -->
+                    <td colspan="2">
+                        <input type="button" value="-" name="removeRow1" id="removeRow1"
+                            onclick="onRemoveRow('ref1')" />
+                    </td>
+                </tr>
+            </table>
+
+            <!-- add row button -->
+            <table cellspacing="10">
+                <tr align="right">
+                    <td>
+                        <input type="button" value="Add Row" name="addRow" id="addRow" onclick="onAddRefRow()" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br /><br />
+
+        <fieldset>
+            <legend><b>Preference</b></legend>
+            <table cellspacing="10">
+                <tr>
+                    <td rowspan="4">
+                        <label for="location">Prefered Location:</label>
+                    </td>
+
+                    <td rowspan="4">
+                        <select name="location[]" id="location" multiple>
+                            <option value="select" selected disabled>Select</option>
+                            <option value="ahmedabad">Ahmedabad</option>
+                            <option value="bengalore">Bengalore</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="rajkot">Rajkot</option>
+                        </select>
+                    </td>
+
+                    <td>
+                        <label for="noticePeriod">Notice Period:</label>
+                    </td>
+
+                    <td>
+                        <input type="number" name="noticePeriod" id="" placeholder="in Months" />
+                    </td>
+
+                    <td rowspan="4">
+                        <label for="department">Department:</label>
+                    </td>
+
+                    <td rowspan="4">
+                        <select name="department" id="">
+                            <option value="select" selected disabled>Select</option>
+                            <option value="ba">BA</option>
+                            <option value="bde">BDE</option>
+                            <option value="dev">Development</option>
+                            <option value="hr">HR</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="currentCTC">Current CTC:</label>
+                    </td>
+
+                    <td>
+                        <input type="number" name="currentCTC" id="" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="expectedCTC">Expected CTC:</label>
+                    </td>
+
+                    <td>
+                        <input type="number" name="expectedCTC" id="" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="resume">Upload Resume:</label>
+                    </td>
+
+                    <td>
+                        <input type="file" name="resume" id="resume" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br /><br />
+
+        <table cellspacing="10">
+            <tr>
+                <td>
+                    <input type="submit" name="submit" id="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    
+    
+    
+
+
+<%- include('partial/footer.ejs') %>
